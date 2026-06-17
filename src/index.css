@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+  * {
+    @apply border-hairline;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-hover text-white text-sm font-medium px-[14px] py-2 rounded-lg transition-colors duration-150;
+  }
+  .btn-secondary {
+    @apply bg-surface-1 hover:bg-surface-2 text-ink text-sm font-medium px-[14px] py-2 rounded-lg border border-hairline transition-colors duration-150;
+  }
+  .btn-tertiary {
+    @apply bg-transparent hover:bg-surface-1 text-ink text-sm font-medium px-[14px] py-2 rounded-lg transition-colors duration-150;
+  }
+  .card {
+    @apply bg-surface-1 rounded-xl border border-hairline p-6;
+  }
+  .input-field {
+    @apply w-full bg-surface-1 text-ink text-base rounded-lg px-3 py-2 border border-hairline focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-ink-tertiary;
+  }
+  .badge {
+    @apply text-xs font-medium rounded-full px-2 py-0.5;
+  }
+  .section-title {
+    @apply text-[28px] md:text-[40px] font-semibold tracking-[-0.6px] md:tracking-[-1px] leading-[1.15] text-ink;
+  }
+  .headline {
+    @apply text-[22px] md:text-[28px] font-semibold tracking-[-0.4px] md:tracking-[-0.6px] leading-[1.20] text-ink;
+  }
+  .eyebrow {
+    @apply text-[13px] font-medium tracking-[0.4px] text-primary uppercase;
+  }
+}
