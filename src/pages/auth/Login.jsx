@@ -25,7 +25,7 @@ export default function Login() {
     setServerError('')
     const { error } = await signIn(values.email, values.password)
     if (error) { setServerError(error.message); return }
-    navigate('/')
+    navigate('/login/success')
   }
 
   return (

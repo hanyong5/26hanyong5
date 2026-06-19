@@ -7,6 +7,7 @@ import AdminRoute from './routes/AdminRoute'
 import Home from './pages/Home'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
+import LoginSuccess from './pages/auth/LoginSuccess'
 
 import AboutLayout from './pages/about/AboutLayout'
 import Company from './pages/about/Company'
@@ -43,6 +44,7 @@ export default function App() {
         <Routes>
           {/* Auth — no layout */}
           <Route path="/login" element={<Login />} />
+          <Route path="/login/success" element={<LoginSuccess />} />
           <Route path="/register" element={<Register />} />
 
           {/* Home */}
