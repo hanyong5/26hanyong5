@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { createInquiry } from '../../services/inquiryService'
 import { useAuth } from '../../contexts/AuthContext'
 import Breadcrumb from '../../components/layout/Breadcrumb'
@@ -19,10 +19,14 @@ const TYPE_LABELS = { product: '제품문의', general: '일반문의', other: '
 export default function InquiryWrite() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { type: 'general' },
+    defaultValues: {
+      type: searchParams.get('type') ?? 'general',
+      title: searchParams.get('title') ?? '',
+    },
   })
 
   async function onSubmit(values) {

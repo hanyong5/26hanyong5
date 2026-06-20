@@ -12,6 +12,7 @@ export default function ProductDetail() {
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     getProduct(id).then(r => {
@@ -24,6 +25,19 @@ export default function ProductDetail() {
     if (!confirm('제품을 삭제하시겠습니까?')) return
     await deleteProduct(id)
     navigate('/products')
+  }
+
+  function handlePurchase() {
+    const orderNo = `ORD-${Date.now()}`
+    const totalPrice = product.price ?? 0
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'purchase', {
+        transaction_id: orderNo,
+        value: totalPrice,
+        currency: 'KRW',
+      })
+    }
+    setShowModal(true)
   }
 
   if (loading) return <Spinner />
@@ -49,7 +63,10 @@ export default function ProductDetail() {
           </p>
 
           <div className="flex gap-3 mb-8">
-            <Link to="/inquiry" className="btn-primary">문의하기</Link>
+            <button className="btn-primary" onClick={handlePurchase}>
+              구매하기
+            </button>
+            <Link to={`/inquiry?type=product&title=${encodeURIComponent(product.name + ' 문의')}`} className="btn-secondary">문의하기</Link>
             {isAdmin && (
               <>
                 <Link to={`/admin/products/${id}/edit`} className="btn-secondary">수정</Link>
@@ -64,6 +81,29 @@ export default function ProductDetail() {
         <div className="mt-12 border-t border-hairline pt-10">
           <h2 className="headline mb-6">상세 설명</h2>
           <div className="text-ink-muted leading-relaxed whitespace-pre-wrap">{product.content}</div>
+        </div>
+      )}
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowModal(false)} />
+          <div className="relative bg-[#1a1b1e] border border-[#23252a] rounded-2xl p-8 w-full max-w-sm mx-4 flex flex-col items-center gap-6">
+            <div className="w-14 h-14 rounded-full bg-[#27a644]/15 flex items-center justify-center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#27a644" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div className="text-center">
+              <p className="text-[18px] font-semibold text-[#f7f8f8] mb-2">구매가 완료되었습니다</p>
+              <p className="text-sm text-[#8a8f98]">{product.name}</p>
+            </div>
+            <button
+              className="btn-primary w-full justify-center"
+              onClick={() => navigate('/products')}
+            >
+              확인
+            </button>
+          </div>
         </div>
       )}
     </div>
