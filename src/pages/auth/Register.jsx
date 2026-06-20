@@ -21,7 +21,6 @@ export default function Register() {
   const { signUp } = useAuth()
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
-  const [done, setDone] = useState(false)
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(schema),
@@ -31,19 +30,8 @@ export default function Register() {
     setServerError('')
     const { error } = await signUp(values.email, values.password, values.name)
     if (error) { setServerError(error.message); return }
-    setDone(true)
+    navigate('/register/success')
   }
-
-  if (done) return (
-    <div className="min-h-screen bg-canvas flex items-center justify-center px-4">
-      <div className="text-center card max-w-sm w-full">
-        <div className="text-2xl mb-3">✉️</div>
-        <h2 className="text-ink font-semibold mb-2">이메일을 확인해주세요</h2>
-        <p className="text-sm text-ink-subtle mb-6">가입하신 이메일로 인증 링크를 보냈습니다.</p>
-        <Link to="/login" className="btn-primary block text-center">로그인하기</Link>
-      </div>
-    </div>
-  )
 
   return (
     <div className="min-h-screen bg-canvas flex items-center justify-center px-4">

@@ -7,6 +7,7 @@ import AdminRoute from './routes/AdminRoute'
 import Home from './pages/Home'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
+import RegisterSuccess from './pages/auth/RegisterSuccess'
 import LoginSuccess from './pages/auth/LoginSuccess'
 
 import AboutLayout from './pages/about/AboutLayout'
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login/success" element={<LoginSuccess />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register/success" element={<RegisterSuccess />} />
 
           {/* Home */}
           <Route path="/" element={<Layout><Home /></Layout>} />
