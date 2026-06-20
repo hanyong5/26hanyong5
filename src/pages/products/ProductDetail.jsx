@@ -43,7 +43,10 @@ export default function ProductDetail() {
         <div>
           {product.category && <p className="text-xs text-primary mb-2">{product.category}</p>}
           <h1 className="text-[28px] font-semibold text-ink tracking-[-0.6px] mb-4">{product.name}</h1>
-          {product.summary && <p className="text-ink-muted mb-6">{product.summary}</p>}
+          {product.summary && <p className="text-ink-muted mb-4">{product.summary}</p>}
+          <p className="text-[22px] font-semibold text-ink mb-6">
+            {product.price ? `${product.price.toLocaleString('ko-KR')}원` : '가격 문의'}
+          </p>
 
           <div className="flex gap-3 mb-8">
             <Link to="/inquiry" className="btn-primary">문의하기</Link>

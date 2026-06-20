@@ -70,8 +70,11 @@ export default function ProductList() {
                     : <span className="text-ink-tertiary text-xs">이미지 없음</span>}
                 </div>
                 {p.category && <p className="text-xs text-primary mb-1">{p.category}</p>}
-                <h3 className="text-base font-medium text-ink mb-2 group-hover:text-primary transition-colors">{p.name}</h3>
-                {p.summary && <p className="text-sm text-ink-subtle line-clamp-2">{p.summary}</p>}
+                <h3 className="text-base font-medium text-ink mb-1 group-hover:text-primary transition-colors">{p.name}</h3>
+                {p.summary && <p className="text-sm text-ink-subtle line-clamp-2 mb-2">{p.summary}</p>}
+                <p className="text-sm font-medium text-ink-muted mt-auto">
+                  {p.price ? `${p.price.toLocaleString('ko-KR')}원` : '가격 문의'}
+                </p>
               </Link>
             ))}
           </div>

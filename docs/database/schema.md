@@ -85,6 +85,7 @@ CREATE POLICY "profiles_select_admin" ON profiles
 | summary | text | | 요약 설명 |
 | content | text | | 상세 설명 |
 | image_url | text | | 대표 이미지 URL (Storage: products/) |
+| price | bigint | | 금액 (원, NULL이면 가격 문의) |
 | is_featured | boolean | DEFAULT false | 메인 노출 여부 |
 | sort_order | integer | DEFAULT 0 | 정렬 순서 |
 | created_at | timestamptz | DEFAULT now() | 등록일 |
@@ -102,6 +103,7 @@ CREATE TABLE products (
   summary     text,
   content     text,
   image_url   text,
+  price       bigint,
   is_featured boolean DEFAULT false,
   sort_order  integer DEFAULT 0,
   created_at  timestamptz DEFAULT now(),

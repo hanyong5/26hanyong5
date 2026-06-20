@@ -14,6 +14,7 @@ const schema = z.object({
   category: z.string().optional(),
   summary: z.string().optional(),
   content: z.string().optional(),
+  price: z.coerce.number().min(0, '금액은 0 이상이어야 합니다').optional().nullable(),
   is_featured: z.boolean().optional(),
   sort_order: z.coerce.number().optional(),
 })
@@ -28,7 +29,7 @@ export default function AdminProductForm() {
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { is_featured: false, sort_order: 0 },
+    defaultValues: { is_featured: false, sort_order: 0, price: null },
   })
 
   useEffect(() => {
@@ -88,6 +89,14 @@ export default function AdminProductForm() {
           <label className="text-sm font-medium text-ink-muted">상세 설명</label>
           <textarea className="input-field min-h-40 resize-y" {...register('content')} />
         </div>
+
+        <Input
+          label="금액 (원)"
+          type="number"
+          placeholder="0 입력 시 '가격 문의'로 표시"
+          error={errors.price?.message}
+          {...register('price')}
+        />
 
         <div className="flex items-center gap-3">
           <Input label="정렬순서" type="number" className="w-24" {...register('sort_order')} />
